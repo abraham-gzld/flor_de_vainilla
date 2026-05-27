@@ -58,10 +58,10 @@ def update_category(
     db.commit()
     db.refresh(category_id)
     return{
-        "Message": "Customer deleted successfully"
+        "Message": "Category deleted successfully"
     }
 
-@router.delete('/{customer_id}')
+@router.delete('/{category_id}')
 def delete_category(
     category_id: int,
     db: Session = Depends(get_db)
@@ -69,10 +69,10 @@ def delete_category(
     category_id = db.query(Category).filter(Category.category_id == category_id).first()
 
     if not category_id:
-        return{"message": "Customer not found"}
+        return{"message": "Category not found"}
 
     db.delete(category_id)
     db.commit()
     return{
-        "Message": "Customer deleted successfully"
+        "Message": "Category deleted successfully"
     }
