@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from backend.config.connection import engine
 from backend.config.connection import Base
@@ -15,7 +16,7 @@ from backend.routes.detail_quotation_routes import router as detail_router
 from backend.routes.custom_cake_routes import router as cake_router
 from backend.routes.cake_extra_routes import router as cake_extra_router
 from backend.routes.size_routes import router as size_router
-
+from backend.routes.dashboard_routes import router as dashboard_router
 
 app = FastAPI()
 Base.metadata.create_all(bind=engine)
@@ -32,6 +33,16 @@ app.include_router(create_quotation)
 app.include_router(detail_router)
 app.include_router(cake_router)
 app.include_router(cake_extra_router)
+app.include_router(dashboard_router)
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 def root():

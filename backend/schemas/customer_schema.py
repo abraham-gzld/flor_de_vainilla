@@ -2,7 +2,7 @@ from pydantic import BaseModel
 
 class customerCreate(BaseModel):
     name: str
-    phone: str | None = None
+    phone: str
     address: str | None = None
 
 class CustomerResponse(BaseModel):

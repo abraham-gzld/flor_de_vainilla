@@ -47,6 +47,25 @@ def get_flavors(
 
     return flavors
 
+@router.get("/{flavor_id}", response_model=flavorResponse)
+def get_flavor(
+    flavor_id: int,
+    db: Session = Depends(get_db)
+):
+
+    flavor = db.query(Flavor).filter(
+        Flavor.flavor_id == flavor_id
+    ).first()
+
+    if not flavor:
+
+        raise HTTPException(
+            status_code=404,
+            detail="Flavor not found"
+        )
+
+    return flavor
+
 
 @router.put("/{flavor_id}", response_model=flavorResponse)
 def update_flavor(

@@ -17,8 +17,9 @@ class Extra(Base):
     )
 
     name = Column(
-        String(100),
-        nullable=False
+        String(50),
+        nullable=False,
+        unique=True
     )
 
     price_extra = Column(

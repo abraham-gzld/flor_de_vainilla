@@ -20,5 +20,7 @@ class Product(Base):
     description = Column(Text)
     base_price = Column(DECIMAL(10,2), nullable=False)
 
+    image_url = Column(Text, nullable=True)
+
     active = Column(Boolean, default=True)
     category = relationship("Category", back_populates="products")

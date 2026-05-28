@@ -1,27 +1,39 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
+from typing import Optional
 
+
+# CREATE
 class detailQuotationCreate(BaseModel):
 
     quotation_id: int
-    product_id: int | None = None
+
+    product_id: Optional[int] = None
 
     product_type: str
 
-    quantity: int = 1
+    quantity: int = Field(gt=0)
 
     unit_price: float
 
     subtotal: float
 
-    comment: str | None = None
+    comment: Optional[str] = None
 
 
+# UPDATE QUANTITY
+class detailQuantityUpdate(BaseModel):
+
+    quantity: int = Field(gt=0)
+
+
+# RESPONSE
 class detailQuotationResponse(BaseModel):
 
     detail_id: int
 
     quotation_id: int
-    product_id: int | None = None
+
+    product_id: Optional[int] = None
 
     product_type: str
 
@@ -31,7 +43,8 @@ class detailQuotationResponse(BaseModel):
 
     subtotal: float
 
-    comment: str | None = None
+    comment: Optional[str] = None
 
-    class Config:
-        from_attributes = True
+    model_config = {
+        "from_attributes": True
+    }

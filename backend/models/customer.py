@@ -8,7 +8,7 @@ class Customer(Base):
 
     customer_id = Column(Integer, primary_key=True, index=True)
     name = Column(String(100), nullable=False)
-    phone = Column(String(20), nullable=False)
+    phone = Column(String(20), nullable=False, index=True)
     address = Column(Text)
 
     register_date = Column(

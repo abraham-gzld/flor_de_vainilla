@@ -276,3 +276,53 @@ def delete_quotation(
     return {
         "message": "Quotation deleted successfully"
     }
+
+@router.put("/{quotation_id}/approve")
+def approve_quotation(
+    quotation_id: int,
+    db: Session = Depends(get_db)
+):
+
+    quotation = db.query(Quotation).filter(
+        Quotation.quotation_id == quotation_id
+    ).first()
+
+    if not quotation:
+
+        raise HTTPException(
+            status_code=404,
+            detail="Quotation not found"
+        )
+
+    quotation.status = "approved"
+
+    db.commit()
+
+    return {
+        "message": "Quotation approved"
+    }
+
+@router.put("/{quotation_id}/cancel")
+def cancel_quotation(
+    quotation_id: int,
+    db: Session = Depends(get_db)
+):
+
+    quotation = db.query(Quotation).filter(
+        Quotation.quotation_id == quotation_id
+    ).first()
+
+    if not quotation:
+
+        raise HTTPException(
+            status_code=404,
+            detail="Quotation not found"
+        )
+
+    quotation.status = "canceled"
+
+    db.commit()
+
+    return {
+        "message": "Quotation canceled"
+    }

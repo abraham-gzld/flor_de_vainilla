@@ -47,6 +47,25 @@ def get_decorations(
 
     return decorations
 
+@router.get("/{decoration_id}", response_model=decorationResponse)
+def get_decoration(
+    decoration_id: int,
+    db: Session = Depends(get_db)
+):
+
+    decoration = db.query(Decoration).filter(
+        Decoration.decoration_id == decoration_id
+    ).first()
+
+    if not decoration:
+
+        raise HTTPException(
+            status_code=404,
+            detail="Decoration not found"
+        )
+
+    return decoration
+
 
 @router.put("/{decoration_id}", response_model=decorationResponse)
 def update_decoration(

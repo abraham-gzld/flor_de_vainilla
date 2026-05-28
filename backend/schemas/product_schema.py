@@ -5,6 +5,7 @@ class productCreate(BaseModel):
     name: str
     description: str | None = None
     base_price: float
+    image_url: str | None = None
     active: bool=True
 
 class productResponse(BaseModel):
@@ -14,6 +15,7 @@ class productResponse(BaseModel):
     name: str
     description: str | None = None
     base_price: float
+    image_url: str | None = None
     active: bool
 
     class Config:

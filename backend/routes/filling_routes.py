@@ -47,6 +47,25 @@ def get_filling(
 
     return filling
 
+@router.get("/{filling_id}", response_model=fillingResponse)
+def get_filling(
+    filling_id: int,
+    db: Session = Depends(get_db)
+):
+
+    filling = db.query(Filling).filter(
+        Filling.filling_id == filling_id
+    ).first()
+
+    if not filling:
+
+        raise HTTPException(
+            status_code=404,
+            detail="Filling not found"
+        )
+
+    return filling
+
 
 @router.put("/{filling_id}", response_model=fillingResponse)
 def update_flavor(

@@ -47,6 +47,24 @@ def get_extras(
 
     return extras
 
+@router.get("/{extra_id}", response_model=extraResponse)
+def get_extra(
+    extra_id: int,
+    db: Session = Depends(get_db)
+):
+
+    extra = db.query(Extra).filter(
+        Extra.extra_id == extra_id
+    ).first()
+
+    if not extra:
+
+        raise HTTPException(
+            status_code=404,
+            detail="Extra not found"
+        )
+
+    return extra
 
 @router.put("/{extra_id}", response_model=extraResponse)
 def update_extra(

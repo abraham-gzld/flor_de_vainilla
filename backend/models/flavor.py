@@ -1,9 +1,6 @@
-from sqlalchemy import Column, Integer, String, DECIMAL, Text, TIMESTAMP
+from sqlalchemy import Column, Integer, String, DECIMAL
 
 from backend.config.connection import Base
-
-from backend.config.connection import Base
-
 
 class Flavor(Base):
 
@@ -16,8 +13,9 @@ class Flavor(Base):
     )
 
     name = Column(
-        String(100),
-        nullable=False
+        String(50),
+        nullable=False,
+        unique=True
     )
 
     price_extra = Column(
