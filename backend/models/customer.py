@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, Text, TIMESTAMP
 from sqlalchemy.sql import func
-
+from sqlalchemy.orm import relationship
 from backend.config.connection import Base
 
 class Customer(Base):
@@ -15,3 +15,7 @@ class Customer(Base):
         TIMESTAMP,
         server_default=func.now()
     )
+    quotations = relationship(
+    "Quotation",
+    back_populates="customer"
+)
